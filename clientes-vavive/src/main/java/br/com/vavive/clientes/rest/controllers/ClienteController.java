@@ -30,7 +30,7 @@ public class ClienteController {
 	private ClienteRepository repository;
 	
 	@GetMapping()
-	public List<Cliente> pegarTodos(){
+	public List<Cliente> obterTodos(){
 		return repository.findAll();
 		
 	}
