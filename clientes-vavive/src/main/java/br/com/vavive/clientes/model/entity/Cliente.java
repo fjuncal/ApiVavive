@@ -11,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.PrePersist;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -38,8 +37,7 @@ public class Cliente {
 	@NotEmpty(message = "{campo.nome.obrigatorio}")
 	private String nome;
 		
-	@Column(nullable = false, length = 11)
-	@NotNull(message = "{campo.cpf.obrigatorio}")
+	@Column(nullable = true, length = 11)
 	@CPF(message = "{campo.cpf.invalido}")
 	private String cpf;
 	
