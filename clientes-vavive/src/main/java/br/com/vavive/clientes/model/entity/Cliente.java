@@ -41,8 +41,7 @@ public class Cliente {
 	@CPF(message = "{campo.cpf.invalido}")
 	private String cpf;
 	
-	@Column(nullable = false, length = 70)
-	@NotEmpty(message = "{campo.email.obrigatorio}")
+	@Column(nullable = true, length = 70)
 	@Email(message = "{campo.email.invalido}")
 	private String email;
 	
