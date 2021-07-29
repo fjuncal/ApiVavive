@@ -57,6 +57,14 @@ public class Cliente {
 	@NotEmpty(message = "{campo.bairro.obrigatorio}")
 	private String bairro;
 	
+	@Column(nullable = false, length = 40)
+	@NotEmpty(message = "{campo.municipio.obrigatorio}")
+	private String municipio;
+	
+	@Column(nullable = false, length = 40)
+	@NotEmpty(message = "{campo.estado.obrigatorio}")
+	private String estado;
+	
 	@Column(nullable = false, length = 13)
 	@NotEmpty(message =  "{campo.telefone.obrigatorio}")
 	private String telefone;
