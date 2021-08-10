@@ -15,9 +15,11 @@ import javax.persistence.PrePersist;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Entity
 @Data
+@EqualsAndHashCode(exclude="cliente")
 public class ServicoPrestado {
 	
 	@Id

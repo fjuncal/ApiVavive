@@ -1,13 +1,15 @@
 package br.com.vavive.clientes.model.entity;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -15,10 +17,12 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 
@@ -27,6 +31,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@EqualsAndHashCode(exclude="servicosPrestados")
 public class Cliente {
 	
 	@Id
@@ -72,17 +77,19 @@ public class Cliente {
 	@Column(nullable = true)
 	private String observacao;
 	
-	@Column(nullable = true)
-	@JoinColumn(name = "ponto_referencia")
+	@Column(name = "ponto_referencia", nullable = true)
 	private String pontoDeReferencia;
 	
-	@Column(nullable = true)
-	@JoinColumn(name = "origem_cliente")
+	@Column(name = "origem_cliente", nullable = true)
 	private String origemCliente;
 		
 	@Column(nullable = false, updatable = false)
 	@JsonFormat(pattern = "dd/MM/yyyy  HH:mm:ss")
 	private LocalDateTime dataCadastro;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.REMOVE)
+	private Set<ServicoPrestado> servicosPrestados;
 	
 	@PrePersist
 	public void prePersist() {
