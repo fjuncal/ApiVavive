@@ -25,7 +25,7 @@ import br.com.vavive.clientes.rest.dto.ServicoPrestadoDTO;
 import br.com.vavive.clientes.util.BigDecimalConverter;
 
 @RestController
-@RequestMapping("api/servicos-prestados")
+@RequestMapping("/servicos-prestados")
 public class ServicoPrestadoController {
 	
 	@Autowired

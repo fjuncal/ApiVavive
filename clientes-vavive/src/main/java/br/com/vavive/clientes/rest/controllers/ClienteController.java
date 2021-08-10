@@ -21,7 +21,7 @@ import br.com.vavive.clientes.model.entity.Cliente;
 import br.com.vavive.clientes.model.repository.ClienteRepository;
 
 @RestController
-@RequestMapping("/api/clientes")
+@RequestMapping("/clientes")
 public class ClienteController {
 	
 	@Autowired
