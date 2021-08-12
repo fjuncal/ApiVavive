@@ -14,7 +14,7 @@ import br.com.vavive.clientes.model.entity.Usuario;
 import br.com.vavive.clientes.model.repository.UsuarioRepository;
 
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("usuarios")
 public class UsuarioController {
 	
 	@Autowired
