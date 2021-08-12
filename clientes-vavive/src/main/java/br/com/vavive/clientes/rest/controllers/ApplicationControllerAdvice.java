@@ -33,7 +33,7 @@ public class ApplicationControllerAdvice {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@ExceptionHandler(ResponseStatusException.class)
 	public ResponseEntity handleResponseStatusException(ResponseStatusException exception) {
-		String menssagemErro = exception.getMessage();
+		String menssagemErro = exception.getReason();
 		HttpStatus codigoStatus = exception.getStatus();
 		
 		ApiErrors apiErrors = new ApiErrors(menssagemErro);

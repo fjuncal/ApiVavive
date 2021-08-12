@@ -10,4 +10,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 	
 	Optional<Usuario> findByUsuario(String usuario);
 
+	//query method - select count(*) > 0 from usuario where usuario = :usuario
+	boolean existsByUsuario(String usuario);
+
 }
