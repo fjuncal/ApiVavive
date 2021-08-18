@@ -19,7 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UsuarioService usuarioService;
 	
-	//AuthenticantionManager é a classe que vai gerenciar a autenticação da aplicação, é através dele que a gnt sabe quem são os usuários da nossa aplicação e as suas senhas
+	//AuthenticantionManager é e a classe que vai gerenciar a autenticação da aplicação, é através dele que a gnt sabe quem são os usuários da nossa aplicação e as suas senhas
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 //		auth.inMemoryAuthentication()
