@@ -18,7 +18,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 			.antMatchers("/usuarios").permitAll()
 			.antMatchers(     
 					"/clientes/**", 
-					"/servicos-prestados/**").authenticated()
+					"/servicos-prestados/**",
+					"/profissionais/**").authenticated()
 			.anyRequest().denyAll();
 		
 //		.antMatchers("/vavive/api/clientes/**").hasAnyRole("USER", "ADM")

@@ -1,0 +1,440 @@
+{
+	"info": {
+		"_postman_id": "42536221-4aec-4ce9-8c40-1deb010736d9",
+		"name": "sistema-vavive",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "autenticacao",
+			"item": [
+				{
+					"name": "/oauth/token",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "angular-vavive",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "vavive",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "juncal",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/vavive/api/oauth/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vavive",
+								"api",
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/usuarios",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuario\": \"juncal\",\r\n    \"senha\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/vavive/api/usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vavive",
+								"api",
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "clientes",
+			"item": [
+				{
+					"name": "/clientes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/vavive/api/clientes/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"vavive",
+								"api",
+								"clientes",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/clientes/{$id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/vavive/api/clientes/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"vavive",
+								"api",
+								"clientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/clientes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Testando Token\",    \r\n    \"email\": \"fjuncal@ig.com\",\r\n    \"endereco\": \"Avenida\",\r\n    \"municipio\": \"RJ\",\r\n    \"estado\": \"RJ\", \r\n    \"cep\": \"22567890\",\r\n    \"bairro\": \"Laranjeiras\",\r\n    \"telefone\": \"25778754\",\r\n    \"observacao\": \"obs\",\r\n    \"pontoDeReferencia\": \"\",\r\n    \"origemCliente\": \"Instagram\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/vavive/api/clientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vavive",
+								"api",
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/clientes/{$id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/vavive/api/clientes/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vavive",
+								"api",
+								"clientes",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/clientes/{$id}",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Fefefefe\",    \r\n    \"cpf\":\"88232001054\",\r\n    \"email\": \"jhukl@ig.com\",\r\n    \"endereco\": \"a\",\r\n    \"cep\": \"1212121\",\r\n    \"bairro\": \"bot\",\r\n    \"municipio\": \"Rio das Ostras\",\r\n    \"estado\": \"RJ\",\r\n    \"telefone\": \"25778754\",\r\n    \"observacao\": \"obs\",\r\n    \"pontoDeReferencia\": \"do oi\",\r\n    \"origemCliente\": \"fb\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/vavive/api/clientes/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vavive",
+								"api",
+								"clientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "profissionais",
+			"item": [
+				{
+					"name": "/profissionais",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/vavive/api/profissionais/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"vavive",
+								"api",
+								"profissionais",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/profissionais",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Solon\",\r\n    \"cpf\": \"11014320712\",\r\n    \"rg\": \"0055544422\",\r\n    \"telefone\": \"999991111\",\r\n    \"endereco\": \"Rua Teste, Numero 22 / 222\",\r\n    \"cep\": \"33344090\",\r\n    \"bairro\": \"Bairro\",\r\n    \"dadosBancarios\": \"Bco Tal, Ag Marco, Cc Polo\",\r\n    \"disponibilidade\": \"seg/qua/sex de 9h às 18h, ter/qui 14h às 18h\",\r\n    \"nota\": 8,\r\n    \"observacao\": \"nfasfnsdfnasdfnasjkfsajknfsdalnflak\",\r\n    \"tipoServico\": \"Faxina\",\r\n    \"aprovado\": \"Em análise\",\r\n    \"ativo\": \"true\",\r\n    \"referenciaProfissional\": \"15 anos para a empresa BLABLAU\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/vavive/api/profissionais/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"vavive",
+								"api",
+								"profissionais",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "servicos-prestados",
+			"item": [
+				{
+					"name": "/servicos-prestados",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/vavive/api/servicos-prestados",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vavive",
+								"api",
+								"servicos-prestados"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/servicos-prestados?mes={$mes}&nome={$nome}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/vavive/api/servicos-prestados?mes=8&nome=a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vavive",
+								"api",
+								"servicos-prestados"
+							],
+							"query": [
+								{
+									"key": "mes",
+									"value": "8"
+								},
+								{
+									"key": "nome",
+									"value": "a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/servicos-prestados",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"observacao\": \"Não pode fazer nada\",\r\n    \"valor\": \"50,00\",\r\n    \"dataAtividade\": \"02/08/2021\",\r\n    \"idCliente\": 1,\r\n    \"nome\": \"Faxina\",\r\n    \"duracao\": \"3 horas\",\r\n    \"hora\": \"16:30\",\r\n    \"nota\": 8,\r\n    \"responsavel\": \"Fred\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/vavive/api/servicos-prestados",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vavive",
+								"api",
+								"servicos-prestados"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

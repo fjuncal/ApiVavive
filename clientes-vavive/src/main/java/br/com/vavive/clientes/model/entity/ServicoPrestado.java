@@ -19,7 +19,7 @@ import lombok.EqualsAndHashCode;
 
 @Entity
 @Data
-@EqualsAndHashCode(exclude="cliente")
+@EqualsAndHashCode(exclude = {"cliente", "profissional"})
 public class ServicoPrestado {
 	
 	@Id
@@ -61,6 +61,10 @@ public class ServicoPrestado {
 	@ManyToOne
 	@JoinColumn(name = "id_cliente")
 	private Cliente cliente;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_profissional")
+	private Profissional profissional;
 	
 	@PrePersist
 	public void prePersist() {
