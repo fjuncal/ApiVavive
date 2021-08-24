@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import br.com.vavive.clientes.model.entity.Cliente;
+import br.com.vavive.clientes.model.entity.ClienteFiltro;
 import br.com.vavive.clientes.model.repository.ClienteRepository;
 
 @RestController
@@ -27,10 +28,12 @@ public class ClienteController {
 	@Autowired
 	private ClienteRepository repository;
 	
-	@GetMapping()
-	public List<Cliente> obterTodos(){
-		return repository.findAll();
-		
+	@GetMapping
+	public List<Cliente> obterTodos(@RequestBody(required = false) ClienteFiltro filtroCliente){
+		if(filtroCliente == null) {
+			return repository.findAll();
+		}
+		return repository.findAll(filtroCliente.getClausulaWhere());
 	}
 	
 	@PostMapping
