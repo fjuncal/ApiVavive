@@ -56,11 +56,9 @@ public class Cliente {
 	private String telefone;
 
 	@Column(nullable = false, length = 13)
-	@NotEmpty(message =  "{campo.telefone.obrigatorio}")
 	private String telefone2;
 
 	@Column(nullable = false, length = 13)
-	@NotEmpty(message =  "{campo.telefone.obrigatorio}")
 	private String telefone3;
 
 	@Column(nullable = true)
@@ -70,6 +68,7 @@ public class Cliente {
 	private String origemCliente;
 		
 	@OneToMany(cascade = CascadeType.ALL)
+	@NotEmpty(message =  "{campo.endereco.obrigatorio}")
 	private Set<Endereco> enderecos;
 
 	@JsonIgnore

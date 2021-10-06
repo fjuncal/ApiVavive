@@ -2,8 +2,6 @@ package br.com.vavive.clientes.model.entity;
 
 import static org.springframework.data.jpa.domain.Specification.where;
 
-import java.time.LocalDate;
-
 import org.springframework.data.jpa.domain.Specification;
 
 public interface ClienteSpecification {
@@ -22,24 +20,43 @@ public interface ClienteSpecification {
 		return (cliente, cq, cb) -> cb.like(cliente.get("cpf"), "%" + cpf + "%");
 	}
 
-	static Specification<Cliente> temOrigem(String origem) {
-		if(origem == null) {
+	static Specification<Cliente> contemTelefone(String telefone) {
+		if(telefone == null) {
 			return where(null);
 		}
-		return (cliente, cq, cb) -> cb.like(cliente.get("origemCliente"), origem);
+		return (cliente, cq, cb) -> cb.or(
+						cb.like(cliente.get("telefone"), "%" + telefone + "%"),
+						cb.like(cliente.get("telefone2"), "%" + telefone + "%"),
+						cb.like(cliente.get("telefone3"), "%" + telefone + "%")
+		);
 	}
 	
-	static Specification<Cliente> maiorQueDataCadastro(LocalDate dataInicio) {
-		if(dataInicio == null) {
+	static Specification<Cliente> contemEndereco(String endereco) {
+		if(endereco == null) {
 			return where(null);
 		}
-		return (cliente, cq, cb) -> cb.greaterThanOrEqualTo(cliente.get("dataCadastro"), dataInicio.atStartOfDay());
+		return (cliente, cq, cb) -> cb.like(cliente.join("enderecos").get("logradouro"), "%" + endereco + "%");
 	}
 
-	static Specification<Cliente> menorQueDataCadastro(LocalDate dataFim) {
-		if(dataFim == null) {
-			return where(null);
-		}
-		return (cliente, cq, cb) -> cb.lessThanOrEqualTo(cliente.get("dataCadastro"), dataFim.plusDays(1).atStartOfDay());
-	}
+//	static Specification<Cliente> temOrigem(String origem) {
+//		if(origem == null) {
+//			return where(null);
+//		}
+//		return (cliente, cq, cb) -> cb.like(cliente.get("origemCliente"), origem);
+//	}
+//	
+//	static Specification<Cliente> maiorQueDataCadastro(LocalDate dataInicio) {
+//		if(dataInicio == null) {
+//			return where(null);
+//		}
+//		return (cliente, cq, cb) -> cb.greaterThanOrEqualTo(cliente.get("dataCadastro"), dataInicio.atStartOfDay());
+//	}
+//
+//	static Specification<Cliente> menorQueDataCadastro(LocalDate dataFim) {
+//		if(dataFim == null) {
+//			return where(null);
+//		}
+//		return (cliente, cq, cb) -> cb.lessThanOrEqualTo(cliente.get("dataCadastro"), dataFim.plusDays(1).atStartOfDay());
+//	}
+	
 }

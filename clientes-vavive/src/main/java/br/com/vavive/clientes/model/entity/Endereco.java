@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -42,4 +43,11 @@ public class Endereco {
 
 	@Column(name = "ponto_referencia", nullable = true, length = 100)
 	private String pontoDeReferencia;
+	
+	@Transient
+	private String enderecoCompleto;
+	
+	public String getEnderecoCompleto() {
+		return logradouro + " " + complemento + " - " + bairro;
+	}
 }
