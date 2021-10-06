@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -50,50 +51,42 @@ public class Cliente {
 	@Email(message = "{campo.email.invalido}")
 	private String email;
 	
-	@Column(nullable = false)
-	@NotEmpty(message = "{campo.endereco.obrigatorio}")
-	private String endereco;
-	
-	@Column(nullable = false)
-	@NotEmpty(message = "{campo.cep.obrigatorio}")
-	private String cep;
-	
-	@Column(nullable = false, length = 40)
-	@NotEmpty(message = "{campo.bairro.obrigatorio}")
-	private String bairro;
-	
-	@Column(nullable = false, length = 40)
-	@NotEmpty(message = "{campo.municipio.obrigatorio}")
-	private String municipio;
-	
-	@Column(nullable = false, length = 40)
-	@NotEmpty(message = "{campo.estado.obrigatorio}")
-	private String estado;
-	
 	@Column(nullable = false, length = 13)
 	@NotEmpty(message =  "{campo.telefone.obrigatorio}")
 	private String telefone;
-	
+
+	@Column(nullable = false, length = 13)
+	@NotEmpty(message =  "{campo.telefone.obrigatorio}")
+	private String telefone2;
+
+	@Column(nullable = false, length = 13)
+	@NotEmpty(message =  "{campo.telefone.obrigatorio}")
+	private String telefone3;
+
 	@Column(nullable = true)
 	private String observacao;
-	
-	@Column(name = "ponto_referencia", nullable = true)
-	private String pontoDeReferencia;
 	
 	@Column(name = "origem_cliente", nullable = true)
 	private String origemCliente;
 		
+	@OneToMany(cascade = CascadeType.ALL)
+	private Set<Endereco> enderecos;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
+	private Set<ServicoPrestado> servicosPrestados;
+
+	@Column(nullable = false, updatable = false)
+	private boolean ativo;
+
 	@Column(nullable = false, updatable = false)
 	@JsonFormat(pattern = "dd/MM/yyyy  HH:mm:ss")
 	private LocalDateTime dataCadastro;
-	
-	@JsonIgnore
-	@OneToMany(mappedBy = "cliente", cascade = CascadeType.REMOVE)
-	private Set<ServicoPrestado> servicosPrestados;
-	
+
 	@PrePersist
 	public void prePersist() {
 		setDataCadastro(LocalDateTime.now());
+		setAtivo(true);
 	}
 	
 	

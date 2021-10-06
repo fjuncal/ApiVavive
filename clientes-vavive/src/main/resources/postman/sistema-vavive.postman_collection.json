@@ -68,6 +68,9 @@
 				{
 					"name": "/usuarios",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -102,9 +105,21 @@
 			"item": [
 				{
 					"name": "/clientes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"a\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://127.0.0.1:8080/vavive/api/clientes/",
 							"protocol": "http",
@@ -157,7 +172,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Testando Token\",    \r\n    \"email\": \"fjuncal@ig.com\",\r\n    \"endereco\": \"Avenida\",\r\n    \"municipio\": \"RJ\",\r\n    \"estado\": \"RJ\", \r\n    \"cep\": \"22567890\",\r\n    \"bairro\": \"Laranjeiras\",\r\n    \"telefone\": \"25778754\",\r\n    \"observacao\": \"obs\",\r\n    \"pontoDeReferencia\": \"\",\r\n    \"origemCliente\": \"Instagram\"\r\n}",
+							"raw": "{\r\n    \"nome\": \"Testando Token\",    \r\n    \"email\": \"fjuncal@ig.com\",\r\n    \"telefone\": \"25778754\",\r\n    \"observacao\": \"obs\",\r\n    \"origemCliente\": \"Instagram\",\r\n    \"enderecos\": [\r\n        {\r\n            \"cep\": \"22240-070\",\r\n            \"logradouro\": \"Rua Soares Cabral\",\r\n            \"complemento\": \"nº 99 / apto 888\",\r\n            \"bairro\": \"Laranjeiras\",\r\n            \"municipio\": \"Rio de Janeiro\",\r\n            \"estado\": \"Rio de Janeiro\",\r\n            \"pontoDeReferencia\": null\r\n        }, \r\n        {\r\n            \"cep\": \"22240-070\",\r\n            \"logradouro\": \"Rua Soares Cabral\",\r\n            \"complemento\": \"nº 45 / apto 888\",\r\n            \"bairro\": \"Laranjeiras\",\r\n            \"municipio\": \"Rio de Janeiro\",\r\n            \"estado\": \"Rio de Janeiro\",\r\n            \"pontoDeReferencia\": null\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -411,8 +426,68 @@
 		"type": "oauth2",
 		"oauth2": [
 			{
+				"key": "tokenType",
+				"value": "",
+				"type": "string"
+			},
+			{
+				"key": "accessToken",
+				"value": "",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "OAuth - VaviveApi",
+				"type": "string"
+			},
+			{
+				"key": "challengeAlgorithm",
+				"value": "S256",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "juncal",
+				"type": "string"
+			},
+			{
+				"key": "useBrowser",
+				"value": true,
+				"type": "boolean"
+			},
+			{
+				"key": "password",
+				"value": "123",
+				"type": "string"
+			},
+			{
+				"key": "grant_type",
+				"value": "password_credentials",
+				"type": "string"
+			},
+			{
+				"key": "clientSecret",
+				"value": "vavive",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "angular-vavive",
+				"type": "string"
+			},
+			{
 				"key": "addTokenTo",
 				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "client_authentication",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "http://localhost:8080/vavive/api/oauth/token",
 				"type": "string"
 			}
 		]
