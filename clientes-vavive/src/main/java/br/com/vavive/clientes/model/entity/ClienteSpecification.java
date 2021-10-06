@@ -12,7 +12,7 @@ public interface ClienteSpecification {
 		if(nome == null) {
 			return where(null);
 		}
-		return (cliente, cq, cb) -> cb.like(cliente.get("nome"), "%" + nome + "%");
+		return (cliente, cq, cb) -> cb.like(cb.upper(cliente.get("nome")), "%" + nome.toUpperCase() + "%");
 	}
 	
 	static Specification<Cliente> contemCpf(String cpf) {

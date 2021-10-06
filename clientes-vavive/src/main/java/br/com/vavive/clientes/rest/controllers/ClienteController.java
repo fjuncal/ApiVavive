@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import br.com.vavive.clientes.model.entity.Cliente;
@@ -29,6 +30,12 @@ public class ClienteController {
 	private ClienteRepository repository;
 	
 	@GetMapping
+	public List<Cliente> obterTodos(){
+		
+		return repository.findAll();
+	}
+	
+	@PostMapping("/search")
 	public List<Cliente> obterTodos(@RequestBody(required = false) ClienteFiltro filtroCliente){
 		if(filtroCliente == null) {
 			return repository.findAll();
@@ -71,4 +78,11 @@ public class ClienteController {
 			})
 			.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado") );
 	}
+	
+	@PostMapping("/importar")
+	public void importarPlanilha(MultipartFile file) {
+		System.out.println(file);
+		
+	}
+	
 }
