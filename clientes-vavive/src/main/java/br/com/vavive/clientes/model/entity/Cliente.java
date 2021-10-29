@@ -55,10 +55,10 @@ public class Cliente {
 	@NotEmpty(message =  "{campo.telefone.obrigatorio}")
 	private String telefone;
 
-	@Column(nullable = false, length = 13)
+	@Column(nullable = true, length = 13)
 	private String telefone2;
 
-	@Column(nullable = false, length = 13)
+	@Column(nullable = true, length = 13)
 	private String telefone3;
 
 	@Column(nullable = true)
