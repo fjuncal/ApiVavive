@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,6 +27,7 @@ public class Usuario {
 	
 	@Column
 	@NotEmpty(message = "{campo.senha.obrigatorio}")
+	@JsonIgnore
 	private String senha;
 
 }

@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -82,11 +83,13 @@ public class Cliente {
 	@JsonFormat(pattern = "dd/MM/yyyy  HH:mm:ss")
 	private LocalDateTime dataCadastro;
 
+	@OneToOne
+	private Usuario criador;
+
 	@PrePersist
 	public void prePersist() {
 		setDataCadastro(LocalDateTime.now());
 		setAtivo(true);
 	}
-	
 	
 }

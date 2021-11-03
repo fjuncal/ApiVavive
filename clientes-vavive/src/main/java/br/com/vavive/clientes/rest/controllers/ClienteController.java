@@ -21,6 +21,7 @@ import org.springframework.web.server.ResponseStatusException;
 import br.com.vavive.clientes.model.entity.Cliente;
 import br.com.vavive.clientes.model.entity.ClienteFiltro;
 import br.com.vavive.clientes.model.repository.ClienteRepository;
+import br.com.vavive.clientes.service.ClienteService;
 
 @RestController
 @RequestMapping("/clientes")
@@ -28,6 +29,9 @@ public class ClienteController {
 	
 	@Autowired
 	private ClienteRepository repository;
+	
+	@Autowired
+	private ClienteService service;
 	
 	@GetMapping
 	public List<Cliente> obterTodos(){
@@ -46,7 +50,7 @@ public class ClienteController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Cliente salvar(@RequestBody @Valid Cliente cliente) {
-		return repository.save(cliente);
+		return service.salvar(cliente);
 	}
 	
 	@GetMapping("{id}")
