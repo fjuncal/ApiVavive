@@ -14,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import br.com.vavive.clientes.exception.UsuarioCadastradoException;
 import br.com.vavive.clientes.model.entity.Usuario;
+import br.com.vavive.clientes.rest.dto.CriarSenhaDTO;
 import br.com.vavive.clientes.rest.dto.TrocarSenhaDTO;
 import br.com.vavive.clientes.service.UsuarioService;
 
@@ -26,9 +27,9 @@ public class UsuarioController {
 	
 	@PostMapping
 	@ResponseStatus(value = HttpStatus.CREATED)
-	public void salvar(@RequestBody @Valid Usuario usuario) {
+	public void salvar(@RequestBody @Valid CriarSenhaDTO dto) {
 		try {
-			usuarioService.salvar(usuario);
+			usuarioService.salvar(dto);
 		} catch (UsuarioCadastradoException e) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
 		}

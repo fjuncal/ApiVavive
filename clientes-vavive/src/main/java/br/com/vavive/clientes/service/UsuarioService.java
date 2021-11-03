@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import br.com.vavive.clientes.exception.UsuarioCadastradoException;
 import br.com.vavive.clientes.model.entity.Usuario;
 import br.com.vavive.clientes.model.repository.UsuarioRepository;
+import br.com.vavive.clientes.rest.dto.CriarSenhaDTO;
 import br.com.vavive.clientes.rest.dto.TrocarSenhaDTO;
 
 @Service
@@ -26,14 +27,15 @@ public class UsuarioService implements UserDetailsService {
 	@Autowired
 	private PasswordEncoder encoder;
 	
-	public Usuario salvar(Usuario usuario) {
+	public Usuario salvar(CriarSenhaDTO dto) {
 		//utilizando o query method do spring data JPA
-		boolean usuarioExiste = usuarioRepository.existsByUsuario(usuario.getUsuario());
+		boolean usuarioExiste = usuarioRepository.existsByUsuario(dto.getUsuario());
 		if (usuarioExiste) {
-			throw new UsuarioCadastradoException(usuario.getUsuario());
+			throw new UsuarioCadastradoException(dto.getUsuario());
 		}
 		
-		usuario.setSenha(encoder.encode(usuario.getSenha()));
+		
+		Usuario usuario = new Usuario(dto, encoder);
 		return usuarioRepository.save(usuario);
 	}
 
