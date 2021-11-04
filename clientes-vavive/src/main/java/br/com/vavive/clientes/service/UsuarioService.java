@@ -59,8 +59,7 @@ public class UsuarioService implements UserDetailsService {
 	}
 
 	public void trocarSenha(@Valid TrocarSenhaDTO dto) {
-		Usuario usuarioBanco = usuarioRepository.findByUsuario(dto.getUsuario())
-					.orElseThrow(() -> new UsernameNotFoundException("login não encontrado"));
+		Usuario usuarioBanco = recuperarUsuarioLogado();
 		
 		if(!encoder.encode(dto.getSenhaAtual()).contentEquals(usuarioBanco.getSenha())) {
 			throw new RuntimeException("Senha atual diferente da esperada.");
