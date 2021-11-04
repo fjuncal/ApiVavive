@@ -1,6 +1,7 @@
 package br.com.vavive.clientes.model.entity;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -92,4 +93,10 @@ public class Cliente {
 		setAtivo(true);
 	}
 	
+	public void addEndereco(Endereco endereco) {
+		if(enderecos == null) {
+			enderecos = new HashSet<>();
+		}
+		enderecos.add(endereco);
+	}
 }

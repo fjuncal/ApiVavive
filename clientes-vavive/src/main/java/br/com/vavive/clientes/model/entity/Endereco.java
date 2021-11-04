@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
-import org.apache.logging.log4j.message.Message;
 import org.springframework.util.StringUtils;
 
 import lombok.AllArgsConstructor;
@@ -31,22 +30,22 @@ public class Endereco {
 	@Column(nullable = true)
 	private String cep;
 
-	@Column(nullable = false, length = 40)
+	@Column(nullable = false, length = 100)
 	private String logradouro;
 
 	@Column(nullable = true, length = 40)
 	private String complemento;
 
 	@Column(nullable = false, length = 40)
-	private String municipio;
+	private String bairro;
 
 	@Column(nullable = false, length = 40)
-	private String bairro;
+	private String municipio;
 	
 	@Column(nullable = false, length = 40)
 	private String estado;
 
-	@Column(name = "ponto_referencia", nullable = true, length = 100)
+	@Column(name = "ponto_referencia", nullable = true)
 	private String pontoDeReferencia;
 	
 	@Transient

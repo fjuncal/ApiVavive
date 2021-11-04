@@ -1,5 +1,8 @@
 package br.com.vavive.clientes.rest.controllers;
 
+import static br.com.vavive.clientes.service.planilha.entity.TipoPlanilhaEnum.CLIENTE;
+
+import java.io.IOException;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +26,7 @@ import br.com.vavive.clientes.model.entity.Cliente;
 import br.com.vavive.clientes.model.entity.ClienteFiltro;
 import br.com.vavive.clientes.model.repository.ClienteRepository;
 import br.com.vavive.clientes.service.ClienteService;
+import br.com.vavive.clientes.service.planilha.PlanilhaService;
 
 @RestController
 @RequestMapping("/clientes")
@@ -32,7 +37,10 @@ public class ClienteController {
 	
 	@Autowired
 	private ClienteService service;
-	
+
+	@Autowired
+	private PlanilhaService planilhaService;
+
 	@GetMapping
 	public List<Cliente> obterTodos(){
 		
@@ -84,9 +92,8 @@ public class ClienteController {
 	}
 	
 	@PostMapping("/importar")
-	public void importarPlanilha(MultipartFile file) {
-		System.out.println(file);
-		
+	public void importarPlanilha(@RequestParam("arquivo") MultipartFile file) throws IOException {
+		planilhaService.importar(file, CLIENTE);
 	}
 	
 }
