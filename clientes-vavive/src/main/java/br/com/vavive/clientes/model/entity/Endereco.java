@@ -1,11 +1,16 @@
 package br.com.vavive.clientes.model.entity;
 
+import java.text.MessageFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
+
+import org.apache.logging.log4j.message.Message;
+import org.springframework.util.StringUtils;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,13 +28,13 @@ public class Endereco {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private String cep;
 
 	@Column(nullable = false, length = 40)
 	private String logradouro;
 
-	@Column(nullable = false, length = 40)
+	@Column(nullable = true, length = 40)
 	private String complemento;
 
 	@Column(nullable = false, length = 40)
@@ -48,6 +53,7 @@ public class Endereco {
 	private String enderecoCompleto;
 	
 	public String getEnderecoCompleto() {
-		return logradouro + " " + complemento + " - " + bairro;
+		String pattern = StringUtils.isEmpty(cep) ? "{0}, {1} - {2}, {3} - {4}." : "{0}, {1} - {2}, {3} - {4}, {5}.";
+		return MessageFormat.format(pattern, logradouro, complemento, bairro, municipio, estado, cep);
 	}
 }
