@@ -61,7 +61,7 @@ public class UsuarioService implements UserDetailsService {
 	public void trocarSenha(@Valid TrocarSenhaDTO dto) {
 		Usuario usuarioBanco = recuperarUsuarioLogado();
 		
-		if(!encoder.encode(dto.getSenhaAtual()).contentEquals(usuarioBanco.getSenha())) {
+		if(!encoder.matches(dto.getSenhaAtual(), usuarioBanco.getSenha())) {
 			throw new RuntimeException("Senha atual diferente da esperada.");
 		}
 		
