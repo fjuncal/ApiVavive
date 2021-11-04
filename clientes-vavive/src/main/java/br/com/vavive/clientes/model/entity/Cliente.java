@@ -44,7 +44,7 @@ public class Cliente {
 	@NotEmpty(message = "{campo.nome.obrigatorio}")
 	private String nome;
 		
-	@Column(nullable = true, length = 11)
+	@Column(nullable = true, length = 13)
 	@CPF(message = "{campo.cpf.invalido}")
 	private String cpf;
 	
@@ -52,14 +52,14 @@ public class Cliente {
 	@Email(message = "{campo.email.invalido}")
 	private String email;
 	
-	@Column(nullable = false, length = 13)
+	@Column(nullable = false, length = 15)
 	@NotEmpty(message =  "{campo.telefone.obrigatorio}")
 	private String telefone;
 
-	@Column(nullable = true, length = 13)
+	@Column(nullable = true, length = 15)
 	private String telefone2;
 
-	@Column(nullable = true, length = 13)
+	@Column(nullable = true, length = 15)
 	private String telefone3;
 
 	@Column(nullable = true)
