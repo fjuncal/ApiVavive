@@ -5,6 +5,7 @@ import static br.com.vavive.clientes.service.planilha.util.PlanilhaUtils.getValo
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import br.com.vavive.clientes.model.entity.Cliente;
@@ -12,6 +13,7 @@ import br.com.vavive.clientes.model.entity.Endereco;
 import br.com.vavive.clientes.service.ClienteService;
 import br.com.vavive.clientes.service.planilha.entity.CampoPlanilhaEnum;
 
+@Service
 public class ClienteFactory {
 	
 	@Autowired
