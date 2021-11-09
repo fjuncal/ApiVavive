@@ -4,26 +4,48 @@ import static br.com.vavive.clientes.service.planilha.util.PlanilhaUtils.getValo
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import br.com.vavive.clientes.model.entity.Cliente;
 import br.com.vavive.clientes.model.entity.Endereco;
+import br.com.vavive.clientes.service.ClienteService;
 import br.com.vavive.clientes.service.planilha.entity.CampoPlanilhaEnum;
 
 public class ClienteFactory {
-	private ClienteFactory() {}
 	
-	public static Cliente create(List<String> cabecalho, List<String> dados) {
-		Cliente cliente = new Cliente();
+	@Autowired
+	ClienteService clienteService;
+	
+	public Cliente create(List<String> cabecalho, List<String> dados) {
 		
-		cliente.setNome(getValorCampo(cabecalho, dados, CampoPlanilhaEnum.NOME_CLIENTE));
+		String nome = getValorCampo(cabecalho, dados, CampoPlanilhaEnum.NOME_CLIENTE);
+		Cliente cliente = clienteService.consultarPorNome(nome);
 		
-		String cpf = getValorCampo(cabecalho, dados, CampoPlanilhaEnum.IDENTIFICACAO_FISCAL_CLIENTE);
-		cliente.setCpf(StringUtils.isEmpty(cpf) ? null : cpf.trim());
-		
-		cliente.setTelefone(getValorCampo(cabecalho, dados, CampoPlanilhaEnum.TELEFONE_CLIENTE));
-		cliente.setObservacao("Identificador na planilha: " + getValorCampo(cabecalho, dados, CampoPlanilhaEnum.IDENTIFICADOR));
-		cliente.setOrigemCliente(getValorCampo(cabecalho, dados, CampoPlanilhaEnum.ORIGEM_CLIENTE));
+		if(cliente == null) {
+			cliente = new Cliente();
+
+			cliente.setNome(nome);
+			
+			String observacao = adicionarObservacao("", "Identificador na planilha", getValorCampo(cabecalho, dados, CampoPlanilhaEnum.IDENTIFICADOR));
+
+			String cpf = getValorCampo(cabecalho, dados, CampoPlanilhaEnum.IDENTIFICACAO_FISCAL_CLIENTE);
+			cliente.setCpf(StringUtils.isEmpty(cpf) ? null : cpf.trim());
+			
+			String telefone = getValorCampo(cabecalho, dados, CampoPlanilhaEnum.TELEFONE_CLIENTE).trim();
+			if(StringUtils.isEmpty(telefone)) {
+				cliente.setTelefone("A PREENCHER");
+				observacao = adicionarObservacao(observacao, "Telefone", "VAZIO");
+			} else if(telefone.length() > 15) {
+				cliente.setTelefone("A PREENCHER");
+				observacao = adicionarObservacao(observacao, "Telefone", telefone);
+			} else {
+				cliente.setTelefone(telefone);
+			}
+
+			cliente.setOrigemCliente(getValorCampo(cabecalho, dados, CampoPlanilhaEnum.ORIGEM_CLIENTE));
+			cliente.setObservacao(observacao);
+		}
 
 		Endereco endereco = new Endereco();
 		
@@ -46,5 +68,9 @@ public class ClienteFactory {
 		cliente.addEndereco(endereco);
 
 		return cliente;
+	}
+	
+	private String adicionarObservacao(String observacao, String campo, String valor) {
+		return observacao.concat(campo + ": " + valor + "#");
 	}
 }

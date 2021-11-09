@@ -17,8 +17,6 @@ import javax.persistence.PrePersist;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
-import org.hibernate.validator.constraints.br.CPF;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -45,8 +43,8 @@ public class Cliente {
 	@NotEmpty(message = "{campo.nome.obrigatorio}")
 	private String nome;
 		
-	@Column(nullable = true, length = 14)
-	@CPF(message = "{campo.cpf.invalido}")
+	@Column(nullable = true, length = 30)
+//	@CPF(message = "{campo.cpf.invalido}")
 	private String cpf;
 	
 	@Column(nullable = true, length = 70)

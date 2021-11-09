@@ -26,11 +26,18 @@ public class PlanilhaService {
 	
 	@Autowired
 	private ClienteService clienteService;
-	
+
+	@Autowired
+	private ClienteFactory clienteFactory;
+
 	private DataFormatter formatter = new DataFormatter();
+	
+	List<String> sucessos;
+	List<String> erros;
 
 	public void importar(MultipartFile file, TipoPlanilhaEnum tipoPlanilha) throws IOException {
-		int sucesso = 0, erro = 0;
+		sucessos = new ArrayList<String>();
+		erros = new ArrayList<String>();
 
 		try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
 			Iterator<Sheet> sheets = workbook.sheetIterator();
@@ -43,22 +50,27 @@ public class PlanilhaService {
 				
 				while(rows.hasNext()) {
 					Row row = rows.next();
-
+					
 					String id = formatter.formatCellValue(row.getCell(0));
 
 					if(isLinhaCabecalho(id)) {
 						cabecalho = getLinha(row);
 					} else {
+						if((sucessos.size() + erros.size()) % 200 == 0)
+							System.out.println("################# " + (sucessos.size() + erros.size()) + " #################");
+
 						List<String> dados = getLinha(row);
-						boolean result = persistirEntidade(cabecalho, dados, tipoPlanilha);
-						if(result) sucesso++; else erro ++;
+						persistirEntidade(cabecalho, dados, tipoPlanilha);
 					}
 				}
 			}
 		}
 
-		System.out.println("Sucesso: " + sucesso);
-		System.out.println("erro: " + erro);
+		System.out.println("Sucesso: " + sucessos.size());
+		System.out.println("erro: " + erros.size());
+		for (String erro : erros) {
+			System.err.println(erro);
+		}
 	}
 
 	private boolean isLinhaCabecalho(String id) {
@@ -66,20 +78,21 @@ public class PlanilhaService {
 	}
 
 	private boolean persistirEntidade(List<String> cabecalho, List<String> dados, TipoPlanilhaEnum tipoPlanilha) {
+		String entidade = "";
 		try {
 			switch (tipoPlanilha) {
 				case CLIENTE:
-					Cliente cliente = ClienteFactory.create(cabecalho, dados);
-					System.out.println(cliente);
+					Cliente cliente = clienteFactory.create(cabecalho, dados);
+					entidade = cliente.toString();
 					clienteService.salvar(cliente);
 					break;
 				default:
 					break;
 			}
-			System.out.println("SUCESSO");
+			sucessos.add(entidade);
 			return true;
 		} catch(Exception e) {
-			System.out.println("ERRO");
+			erros.add(entidade + "\n" + e.getMessage());
 			return false;
 		}
 

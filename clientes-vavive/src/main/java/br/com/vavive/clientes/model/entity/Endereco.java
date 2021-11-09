@@ -27,13 +27,13 @@ public class Endereco {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(nullable = true)
+	@Column(nullable = true, length = 9)
 	private String cep;
 
 	@Column(nullable = false, length = 100)
 	private String logradouro;
 
-	@Column(nullable = true, length = 40)
+	@Column(nullable = true, length = 100)
 	private String complemento;
 
 	@Column(nullable = false, length = 40)

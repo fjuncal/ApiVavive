@@ -31,7 +31,7 @@ public class PlanilhaUtils {
 		
 		while (cells.hasNext()) {
 			Cell cell = cells.next();
-			celulas.add(PlanilhaUtils.getValorCelula(cell));
+			celulas.add(getValorCelula(cell));
 		}
 		
 		return celulas;
@@ -49,7 +49,7 @@ public class PlanilhaUtils {
 			if(DateUtil.isCellDateFormatted(cell)) {
 				return formatDate.format(cell.getDateCellValue());
 			} else {
-				return formatValue.formatCellValue(cell);
+				return new BigDecimal(cell.getNumericCellValue()).toPlainString();
 			}
 		} else {
 			return formatValue.formatCellValue(cell);
