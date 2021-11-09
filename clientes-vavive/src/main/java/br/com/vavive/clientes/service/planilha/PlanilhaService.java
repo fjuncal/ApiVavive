@@ -1,6 +1,7 @@
 package br.com.vavive.clientes.service.planilha;
 
 import static br.com.vavive.clientes.service.planilha.util.PlanilhaUtils.getLinha;
+import static br.com.vavive.clientes.service.planilha.util.PlanilhaUtils.getValorCampo;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,7 +18,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.com.vavive.clientes.model.entity.Cliente;
+import br.com.vavive.clientes.model.entity.Endereco;
 import br.com.vavive.clientes.service.ClienteService;
+import br.com.vavive.clientes.service.planilha.entity.CampoPlanilhaEnum;
 import br.com.vavive.clientes.service.planilha.entity.TipoPlanilhaEnum;
 import br.com.vavive.clientes.service.planilha.factory.ClienteFactory;
 
@@ -27,17 +30,16 @@ public class PlanilhaService {
 	@Autowired
 	private ClienteService clienteService;
 
-	@Autowired
-	private ClienteFactory clienteFactory;
-
 	private DataFormatter formatter = new DataFormatter();
 	
 	List<String> sucessos;
 	List<String> erros;
+	List<String> repetidos;
 
 	public void importar(MultipartFile file, TipoPlanilhaEnum tipoPlanilha) throws IOException {
 		sucessos = new ArrayList<String>();
 		erros = new ArrayList<String>();
+		repetidos = new ArrayList<String>();
 
 		try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
 			Iterator<Sheet> sheets = workbook.sheetIterator();
@@ -66,8 +68,9 @@ public class PlanilhaService {
 			}
 		}
 
-		System.out.println("Sucesso: " + sucessos.size());
-		System.out.println("erro: " + erros.size());
+		System.out.println("Novos: " + (sucessos.size() - repetidos.size()));
+		System.out.println("Repetidos: " + repetidos.size());
+		System.out.println("Erros: " + erros.size());
 		for (String erro : erros) {
 			System.err.println(erro);
 		}
@@ -82,9 +85,24 @@ public class PlanilhaService {
 		try {
 			switch (tipoPlanilha) {
 				case CLIENTE:
-					Cliente cliente = clienteFactory.create(cabecalho, dados);
-					entidade = cliente.toString();
-					clienteService.salvar(cliente);
+					String nome = getValorCampo(cabecalho, dados, CampoPlanilhaEnum.NOME_CLIENTE);
+					Cliente cliente = clienteService.consultarPorNome(nome);
+
+					if(cliente != null) {
+						entidade = cliente.toString();
+
+						Endereco endereco = ClienteFactory.getEndereco(cabecalho, dados);
+						if(!cliente.possuiEndereco(endereco)) {
+							cliente.addEndereco(endereco);
+							clienteService.salvar(cliente);
+						} else {
+							repetidos.add(entidade);
+						}
+					} else {
+						cliente = ClienteFactory.criar(cabecalho, dados);
+						entidade = cliente.toString();
+						clienteService.salvar(cliente);
+					}
 					break;
 				default:
 					break;

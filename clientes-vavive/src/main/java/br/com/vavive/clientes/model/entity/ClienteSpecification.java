@@ -5,6 +5,13 @@ import static org.springframework.data.jpa.domain.Specification.where;
 import org.springframework.data.jpa.domain.Specification;
 
 public interface ClienteSpecification {
+
+	static Specification<Cliente> igualNome(String nome) {
+		if(nome == null) {
+			return where(null);
+		}
+		return (cliente, cq, cb) -> cb.like(cb.upper(cliente.get("nome")),nome.toUpperCase());
+	}
 	
 	static Specification<Cliente> contemNome(String nome) {
 		if(nome == null) {

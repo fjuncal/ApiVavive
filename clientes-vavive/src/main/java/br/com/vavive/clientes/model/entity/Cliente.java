@@ -97,4 +97,14 @@ public class Cliente {
 		}
 		enderecos.add(endereco);
 	}
+
+	public boolean possuiEndereco(Endereco novoEndereco) {
+		for(Endereco endereco : enderecos) {
+			if(endereco.getLogradouro().contentEquals(novoEndereco.getLogradouro())
+					&& endereco.getComplemento().contentEquals(novoEndereco.getComplemento())) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
