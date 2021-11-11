@@ -51,14 +51,14 @@ public class Cliente {
 	@Email(message = "{campo.email.invalido}")
 	private String email;
 	
-	@Column(nullable = false, length = 15)
+	@Column(nullable = false, length = 20)
 	@NotEmpty(message =  "{campo.telefone.obrigatorio}")
 	private String telefone;
 
-	@Column(nullable = true, length = 15)
+	@Column(nullable = true, length = 20)
 	private String telefone2;
 
-	@Column(nullable = true, length = 15)
+	@Column(nullable = true, length = 20)
 	private String telefone3;
 
 	@Column(nullable = true)

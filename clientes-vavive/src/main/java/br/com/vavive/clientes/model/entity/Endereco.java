@@ -52,7 +52,10 @@ public class Endereco {
 	private String enderecoCompleto;
 	
 	public String getEnderecoCompleto() {
-		String pattern = StringUtils.isEmpty(cep) ? "{0}, {1} - {2}, {3} - {4}." : "{0}, {1} - {2}, {3} - {4}, {5}.";
-		return MessageFormat.format(pattern, logradouro, complemento, bairro, municipio, estado, cep);
+		String rua = StringUtils.isEmpty(complemento) ? logradouro: logradouro + ", " + complemento;
+		
+		String pattern = StringUtils.isEmpty(cep) ? "{0} - {1}, {2} - {3}." : "{0} - {1}, {2} - {3}, {4}.";
+
+		return MessageFormat.format(pattern, rua, bairro, municipio, estado, cep);
 	}
 }
