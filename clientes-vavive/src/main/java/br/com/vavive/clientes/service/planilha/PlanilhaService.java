@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import br.com.vavive.clientes.model.entity.Cliente;
 import br.com.vavive.clientes.model.entity.Endereco;
+import br.com.vavive.clientes.rest.dto.ResultadoImportacaoDTO;
 import br.com.vavive.clientes.service.ClienteService;
 import br.com.vavive.clientes.service.planilha.entity.CampoPlanilhaEnum;
 import br.com.vavive.clientes.service.planilha.entity.TipoPlanilhaEnum;
@@ -33,14 +34,10 @@ public class PlanilhaService {
 
 	private DataFormatter formatter = new DataFormatter();
 	
-	List<String> sucessos;
-	List<String> erros;
-	List<String> repetidos;
-
-	public void importar(MultipartFile file, TipoPlanilhaEnum tipoPlanilha) throws IOException {
-		sucessos = new ArrayList<String>();
-		erros = new ArrayList<String>();
-		repetidos = new ArrayList<String>();
+	ResultadoImportacaoDTO resultado;
+	
+	public ResultadoImportacaoDTO importar(MultipartFile file, TipoPlanilhaEnum tipoPlanilha) throws IOException {
+		resultado = new ResultadoImportacaoDTO(tipoPlanilha.name());
 
 		try (Workbook workbook = new XSSFWorkbook(file.getInputStream())) {
 			Iterator<Sheet> sheets = workbook.sheetIterator();
@@ -59,8 +56,8 @@ public class PlanilhaService {
 					if(isLinhaCabecalho(id)) {
 						cabecalho = getLinha(row);
 					} else {
-						if((sucessos.size() + erros.size()) % 200 == 0)
-							System.out.println("################# " + (sucessos.size() + erros.size()) + " #################");
+						if(resultado.getQuantidadeLinhasLidas() % 500 == 0)
+							System.out.println("Linhas lidas da planilha: " + resultado.getQuantidadeLinhasLidas());
 
 						List<String> dados = getLinha(row);
 						persistirEntidade(cabecalho, dados, tipoPlanilha);
@@ -69,12 +66,22 @@ public class PlanilhaService {
 			}
 		}
 
-		System.out.println("Novos: " + (sucessos.size() - repetidos.size()));
-		System.out.println("Repetidos: " + repetidos.size());
-		System.out.println("Erros: " + erros.size());
-		for (String erro : erros) {
-			System.err.println(erro);
+		System.out.println("\n##### RESUMO #####\n");
+		System.out.println("Linhas lidas sem erro: " + resultado.getQuantidadeLinhasLidasSemErro());
+		System.out.println("Linhas lidas com erro: " + resultado.getQuantidadeLinhasLidasComErro());
+		System.out.println("Linhas com novos clientes: " + resultado.getQuantidadeRegistrosNovos());
+		System.out.println("Linhas com novos endereços de clientes já cadastrados: " + resultado.getQuantidadeRegistrosAtualizados());
+		System.out.println("Linhas com cliente e endereço já cadastrados: " + resultado.getQuantidadeRegistrosRepetidos());
+		System.out.println("\n##### LISTA DE ERROS #####\n");
+		if(resultado.getErros().isEmpty()) {
+			System.out.println("SEM ERROS");
+		} else {
+			for (String erro : resultado.getErros()) {
+				System.err.println(erro);
+			}
 		}
+		
+		return resultado;
 	}
 
 	private boolean isLinhaCabecalho(String id) {
@@ -82,7 +89,7 @@ public class PlanilhaService {
 	}
 
 	private void persistirEntidade(List<String> cabecalho, List<String> dados, TipoPlanilhaEnum tipoPlanilha) {
-		String entidade = "";
+		Cliente cliente = null;
 		try {
 			switch (tipoPlanilha) {
 				case CLIENTE:
@@ -91,30 +98,30 @@ public class PlanilhaService {
 						return;
 					}
 					
-					Cliente cliente = clienteService.consultarPorNome(nome);
+					cliente = clienteService.consultarPorNome(nome);
 
 					if(cliente != null) {
-						entidade = cliente.toString();
-
 						Endereco endereco = ClienteFactory.getEndereco(cabecalho, dados);
 						if(!cliente.possuiEndereco(endereco)) {
 							cliente.addEndereco(endereco);
 							clienteService.salvar(cliente);
+							resultado.incrementaQuantidadeRegistrosAtualizados();
 						} else {
-							repetidos.add(entidade);
+							resultado.incrementaQuantidadeRegistrosRepetidos();
 						}
 					} else {
 						cliente = ClienteFactory.criar(cabecalho, dados);
-						entidade = cliente.toString();
 						clienteService.salvar(cliente);
+						resultado.incrementaQuantidadeRegistrosNovos();
 					}
 					break;
 				default:
 					break;
 			}
-			sucessos.add(entidade);
 		} catch(Exception e) {
-			erros.add(entidade + "\n" + e.getMessage());
+			String entidade = cliente == null ? "" : cliente.toString();
+			resultado.addErro(entidade + "\n" + e.getMessage());
+			e.printStackTrace();
 		}
 
 	}

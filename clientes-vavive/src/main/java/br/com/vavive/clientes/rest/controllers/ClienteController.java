@@ -25,6 +25,7 @@ import org.springframework.web.server.ResponseStatusException;
 import br.com.vavive.clientes.model.entity.Cliente;
 import br.com.vavive.clientes.model.entity.ClienteFiltro;
 import br.com.vavive.clientes.model.repository.ClienteRepository;
+import br.com.vavive.clientes.rest.dto.ResultadoImportacaoDTO;
 import br.com.vavive.clientes.service.ClienteService;
 import br.com.vavive.clientes.service.planilha.PlanilhaService;
 
@@ -92,8 +93,8 @@ public class ClienteController {
 	}
 	
 	@PostMapping("/importar")
-	public void importarPlanilha(@RequestParam("arquivo") MultipartFile file) throws IOException {
-		planilhaService.importar(file, CLIENTE);
+	public ResultadoImportacaoDTO importarPlanilha(@RequestParam("arquivo") MultipartFile file) throws IOException {
+		return planilhaService.importar(file, CLIENTE);
 	}
 	
 }
