@@ -100,7 +100,7 @@ public class Cliente {
 
 	public boolean possuiEndereco(Endereco novoEndereco) {
 		for(Endereco endereco : enderecos) {
-			if(endereco.compareTo(novoEndereco) != 0) {
+			if(endereco.compareTo(novoEndereco) == 0) {
 				return true;
 			}
 		}
