@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "42536221-4aec-4ce9-8c40-1deb010736d9",
-		"name": "sistema-vavive",
+		"_postman_id": "246fc3e7-499c-4e92-855a-d85e7a225e79",
+		"name": "sistema-vavive remoto",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -49,12 +49,13 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8080/vavive/api/oauth/token",
-							"protocol": "http",
+							"raw": "https://vavive-api-java.herokuapp.com/vavive/api/oauth/token",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"vavive-api-java",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"vavive",
 								"api",
@@ -83,45 +84,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/vavive/api/usuarios",
-							"protocol": "http",
+							"raw": "https://vavive-api-java.herokuapp.com/vavive/api/usuarios",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"vavive-api-java",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
-							"path": [
-								"vavive",
-								"api",
-								"usuarios"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/usuario logado (teste)",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"usuario\": \"juncal\",\r\n    \"senha\": \"123\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/vavive/api/usuarios",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
 							"path": [
 								"vavive",
 								"api",
@@ -154,20 +123,17 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8080/vavive/api/clientes/",
-							"protocol": "http",
+							"raw": "https://vavive-api-java.herokuapp.com/vavive/api/clientes",
+							"protocol": "https",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"vavive-api-java",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"vavive",
 								"api",
-								"clientes",
-								""
+								"clientes"
 							]
 						}
 					},
@@ -179,15 +145,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8080/vavive/api/clientes/1",
-							"protocol": "http",
+							"raw": "https://vavive-api-java.herokuapp.com/vavive/api/clientes/1",
+							"protocol": "https",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"vavive-api-java",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"vavive",
 								"api",
@@ -213,12 +177,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/vavive/api/clientes",
-							"protocol": "http",
+							"raw": "https://vavive-api-java.herokuapp.com/vavive/api/clientes",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"vavive-api-java",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"vavive",
 								"api",
@@ -234,12 +199,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/vavive/api/clientes/2",
-							"protocol": "http",
+							"raw": "https://vavive-api-java.herokuapp.com/vavive/api/clientes/2",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"vavive-api-java",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"vavive",
 								"api",
@@ -265,12 +231,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/vavive/api/clientes/1",
-							"protocol": "http",
+							"raw": "https://vavive-api-java.herokuapp.com/vavive/api/clientes/1",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"vavive-api-java",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"vavive",
 								"api",
@@ -292,15 +259,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8080/vavive/api/profissionais/",
-							"protocol": "http",
+							"raw": "https://vavive-api-java.herokuapp.com/vavive/api/profissionais/",
+							"protocol": "https",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"vavive-api-java",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"vavive",
 								"api",
@@ -326,15 +291,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8080/vavive/api/profissionais/",
-							"protocol": "http",
+							"raw": "https://vavive-api-java.herokuapp.com/vavive/api/profissionais/",
+							"protocol": "https",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"vavive-api-java",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"vavive",
 								"api",
@@ -356,12 +319,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/vavive/api/servicos-prestados",
-							"protocol": "http",
+							"raw": "https://vavive-api-java.herokuapp.com/vavive/api/servicos-prestados",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"vavive-api-java",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"vavive",
 								"api",
@@ -377,12 +341,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/vavive/api/servicos-prestados?mes=8&nome=a",
-							"protocol": "http",
+							"raw": "https://vavive-api-java.herokuapp.com/vavive/api/servicos-prestados?mes=8&nome=a",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"vavive-api-java",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"vavive",
 								"api",
@@ -417,12 +382,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/vavive/api/servicos-prestados",
-							"protocol": "http",
+							"raw": "https://vavive-api-java.herokuapp.com/vavive/api/servicos-prestados",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"vavive-api-java",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"vavive",
 								"api",
@@ -458,6 +424,11 @@
 	"auth": {
 		"type": "oauth2",
 		"oauth2": [
+			{
+				"key": "accessTokenUrl",
+				"value": "https://vavive-api-java.herokuapp.com/vavive/api/oauth/token",
+				"type": "string"
+			},
 			{
 				"key": "tokenType",
 				"value": "",
@@ -516,11 +487,6 @@
 			{
 				"key": "client_authentication",
 				"value": "header",
-				"type": "string"
-			},
-			{
-				"key": "accessTokenUrl",
-				"value": "http://localhost:8080/vavive/api/oauth/token",
 				"type": "string"
 			}
 		]
