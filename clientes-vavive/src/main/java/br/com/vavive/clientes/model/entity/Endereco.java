@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Endereco {
+public class Endereco implements Comparable<Endereco>{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,13 +30,13 @@ public class Endereco {
 	@Column(nullable = true, length = 9)
 	private String cep;
 
-	@Column(nullable = false, length = 100)
+	@Column(nullable = false)
 	private String logradouro;
 
-	@Column(nullable = true, length = 100)
+	@Column(nullable = true)
 	private String complemento;
 
-	@Column(nullable = false, length = 40)
+	@Column(nullable = false, length = 100)
 	private String bairro;
 
 	@Column(nullable = false, length = 40)
@@ -45,14 +45,26 @@ public class Endereco {
 	@Column(nullable = false, length = 40)
 	private String estado;
 
-	@Column(name = "ponto_referencia", nullable = true)
+	@Column(name = "ponto_referencia", nullable = true, columnDefinition = "TEXT")
 	private String pontoDeReferencia;
 	
 	@Transient
 	private String enderecoCompleto;
 	
 	public String getEnderecoCompleto() {
-		String pattern = StringUtils.isEmpty(cep) ? "{0}, {1} - {2}, {3} - {4}." : "{0}, {1} - {2}, {3} - {4}, {5}.";
-		return MessageFormat.format(pattern, logradouro, complemento, bairro, municipio, estado, cep);
+		String rua = StringUtils.isEmpty(complemento) ? logradouro: logradouro + ", " + complemento;
+		
+		String pattern = StringUtils.isEmpty(cep) ? "{0} - {1}, {2} - {3}." : "{0} - {1}, {2} - {3}, {4}.";
+
+		return MessageFormat.format(pattern, rua, bairro, municipio, estado, cep);
 	}
+
+	@Override
+	public int compareTo(Endereco novoEndereco) {
+		int logradouro = this.getLogradouro().contentEquals(novoEndereco.getLogradouro()) ? 0 : 10;
+		int complemento = this.getComplemento().contentEquals(novoEndereco.getComplemento()) ? 0 : 1;
+		return logradouro + complemento;
+	}
+	
+	
 }

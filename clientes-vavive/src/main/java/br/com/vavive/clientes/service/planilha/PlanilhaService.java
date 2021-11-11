@@ -15,6 +15,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.com.vavive.clientes.model.entity.Cliente;
@@ -80,12 +81,16 @@ public class PlanilhaService {
 		return id.contentEquals("#");
 	}
 
-	private boolean persistirEntidade(List<String> cabecalho, List<String> dados, TipoPlanilhaEnum tipoPlanilha) {
+	private void persistirEntidade(List<String> cabecalho, List<String> dados, TipoPlanilhaEnum tipoPlanilha) {
 		String entidade = "";
 		try {
 			switch (tipoPlanilha) {
 				case CLIENTE:
 					String nome = getValorCampo(cabecalho, dados, CampoPlanilhaEnum.NOME_CLIENTE);
+					if(StringUtils.isEmpty(nome)) {
+						return;
+					}
+					
 					Cliente cliente = clienteService.consultarPorNome(nome);
 
 					if(cliente != null) {
@@ -108,10 +113,8 @@ public class PlanilhaService {
 					break;
 			}
 			sucessos.add(entidade);
-			return true;
 		} catch(Exception e) {
 			erros.add(entidade + "\n" + e.getMessage());
-			return false;
 		}
 
 	}
