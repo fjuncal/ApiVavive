@@ -33,7 +33,7 @@ public class Endereco implements Comparable<Endereco>{
 	@Column(nullable = false)
 	private String logradouro;
 
-	@Column(nullable = true)
+	@Column(nullable = true, columnDefinition = "TEXT")
 	private String complemento;
 
 	@Column(nullable = false, length = 100)
