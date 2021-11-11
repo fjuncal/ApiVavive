@@ -29,7 +29,7 @@ public class ClienteFactory {
 		if(StringUtils.isEmpty(telefone)) {
 			cliente.setTelefone("A PREENCHER");
 			observacao = adicionarObservacao(observacao, "Telefone", "VAZIO");
-		} else if(telefone.length() > 15) {
+		} else if(telefone.length() > 20) {
 			cliente.setTelefone("A PREENCHER");
 			observacao = adicionarObservacao(observacao, "Telefone", telefone);
 		} else {
@@ -51,9 +51,8 @@ public class ClienteFactory {
 		String enderecoCampo = getValorCampo(cabecalho, dados, CampoPlanilhaEnum.ENDERECO_CLIENTE);
 		
 		if(enderecoCampo.contains(",")) {
-			String[] enderecoComplemento = enderecoCampo.split(",");
-			endereco.setLogradouro(enderecoComplemento[0]);
-			endereco.setComplemento(enderecoComplemento[1]);
+			endereco.setLogradouro(enderecoCampo.substring(0, enderecoCampo.indexOf(",")));
+			endereco.setComplemento(enderecoCampo.substring(enderecoCampo.indexOf(",")+1, enderecoCampo.length()));
 		} else {
 			endereco.setLogradouro(enderecoCampo);
 			endereco.setComplemento("A PREENCHER");
